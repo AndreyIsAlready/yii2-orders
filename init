@@ -1,0 +1,29 @@
+<?php
+
+/** configure assets folder */
+setChmod(__DIR__ . '/web/assets');
+
+/** configure runtime folders */
+$runtimePath = __DIR__ . '/runtime';
+
+setChmod($runtimePath);
+
+umask(0);
+mkdir($runtimePath . '/logs', 0777);
+
+exit(0);
+
+/**
+ * Sets chmod 777 to $path and writes to console info-message
+ *
+ * @param string $path
+ */
+function setChmod(string $path): void
+{
+    if (!chmod($path, 0777)) {
+        fwrite(STDERR, '[-] can not set chmod to ' . $path . PHP_EOL);
+        exit(1);
+    } else {
+        fwrite(STDOUT, '[+] change chmod to ' . $path . PHP_EOL);
+    }
+}
