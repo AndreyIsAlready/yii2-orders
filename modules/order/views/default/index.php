@@ -1,5 +1,16 @@
 <?php
 
+use order\models\OrdersSearch;
+
+/* @var $searchModel OrdersSearch */
+/* @var $pagination int */
+/* @var $totalItems int */
+/* @var $firstItem int */
+/* @var $lastItem int */
+/* @var $firstPage int */
+/* @var $lastPage int */
+/* @var $page int */
+
 ?>
 
 <nav class="navbar navbar-fixed-top navbar-default">
@@ -87,54 +98,20 @@
         </tr>
         </thead>
         <tbody>
+        <?php foreach ($searchModel as $model):?>
         <tr>
-            <td>558931</td>
-            <td>waliullah</td>
-            <td class="link">/p/BMRSv4FDevy/</td>
-            <td>3000</td>
+            <td><?= $model->id?></td>
+            <td><?= $model->user_id?></td>
+            <td class="link"><?= $model->link?></td>
+            <td><?= $model->quantity?></td>
             <td class="service">
-                <span class="label-id">213</span>Likes
+                <span class="label-id"><?= $model->service_id?></span>Likes
             </td>
-            <td>Pending</td>
-            <td>Manual</td>
-            <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>
+            <td><?= $model->status?></td>
+            <td><?= $model->mode?></td>
+            <td><span class="nowrap"><?= $model->created_at['date']?></span><span class="nowrap"><?= $model->created_at['time']?></span></td>
         </tr>
-        <tr>
-            <td>55892</td>
-            <td>spiderfady</td>
-            <td class="link">/followers</td>
-            <td>1800</td>
-            <td class="service">
-                <span class="label-id">3</span> Real Views
-            </td>
-            <td>Canceled</td>
-            <td>Auto</td>
-            <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>
-        </tr>
-        <tr>
-            <td>55891</td>
-            <td>spiderfady</td>
-            <td class="link">/com.usk</td>
-            <td>1800</td>
-            <td class="service">
-                <span class="label-id">15</span> Views
-            </td>
-            <td>Canceled</td>
-            <td>Auto</td>
-            <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>
-        </tr>
-        <tr>
-            <td>52137</td>
-            <td>gulaka</td>
-            <td class="link">/p/BMD5RzxgRke/</td>
-            <td>1800</td>
-            <td class="service">
-                <span class="label-id">5</span> Comment
-            </td>
-            <td>Error</td>
-            <td>Auto</td>
-            <td><span class="nowrap">2016-01-27</span><span class="nowrap">15:13:52</span></td>
-        </tr>
+        <?php endforeach; ?>
         </tbody>
     </table>
     <div class="row">
@@ -143,23 +120,20 @@
             <nav>
                 <ul class="pagination">
                     <li class="disabled"><a href="" aria-label="Previous">&laquo;</a></li>
-                    <li class="active"><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><a href="">3</a></li>
-                    <li><a href="">4</a></li>
-                    <li><a href="">5</a></li>
-                    <li><a href="">6</a></li>
-                    <li><a href="">7</a></li>
-                    <li><a href="">8</a></li>
-                    <li><a href="">9</a></li>
-                    <li><a href="">10</a></li>
+                <?php for($i = $firstPage; $i <= $lastPage; $i++):?>
+                    <?php if ($i === $page):?>
+                    <li class="active"><a href=""><?=$i?></a></li>
+                    <?php else:?>
+                    <li><a href=""><?=$i?></a></li>
+                    <?php endif;?>
+                <?php endfor; ?>
                     <li><a href="" aria-label="Next">&raquo;</a></li>
                 </ul>
             </nav>
 
         </div>
         <div class="col-sm-4 pagination-counters">
-            1 to 100 of 3263
+            <?= $lastItem  ?> to <?= $firstItem ?> of <?= $totalItems?>
         </div>
 
     </div>

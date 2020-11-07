@@ -25,7 +25,9 @@ class DefaultController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        $orderSearch = new OrdersSearch();
+
+        return $this->render('index', $orderSearch->search());
     }
 
 }
