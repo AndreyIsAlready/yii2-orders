@@ -58,4 +58,29 @@ class Orders extends ActiveRecord
             [['link'], 'string', 'max' => 300],
         ];
     }
+
+    /**
+     * @return string[]
+     */
+    public static function getStatuses(): array
+    {
+        return [
+            self::STATUS_PENDING => 'Pending',
+            self::STATUS_IN_PROGRESS => 'In_progress',
+            self::STATUS_COMPLETED => 'Completed',
+            self::STATUS_CANCELED => 'Canceled',
+            self::STATUS_FAIL => 'Fail',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getModes(): array
+    {
+        return [
+            self::MODE_MANUAL => 'Manual',
+            self::MODE_AUTO => 'Auto',
+        ];
+    }
 }

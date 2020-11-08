@@ -101,11 +101,11 @@ use order\models\OrdersSearch;
         <?php foreach ($searchModel as $model):?>
         <tr>
             <td><?= $model->id?></td>
-            <td><?= $model->user_id?></td>
+            <td><?= $model->user_id['first_name']?> <?= $model->user_id['last_name'];?></td>
             <td class="link"><?= $model->link?></td>
             <td><?= $model->quantity?></td>
             <td class="service">
-                <span class="label-id"><?= $model->service_id?></span>Likes
+                <span class="label-id"><?= $model->service_id['count']?></span><?= $model->service_id['name']?>
             </td>
             <td><?= $model->status?></td>
             <td><?= $model->mode?></td>
