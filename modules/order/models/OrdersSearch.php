@@ -4,15 +4,16 @@ namespace order;
 
 use order\models\Users;
 use yii\data\ActiveDataProvider;
-use yii\helpers\ArrayHelper;
 
 class OrdersSearch extends Orders
 {
 
-    public function search(): array
+    public function search($params): array
     {
-        $page = 999;
-        $dataProvider = $this->getDataProvider($page);
+        $page = $params['page'] ?? 0;
+        $services = $this->getServices();
+        $dataProvider = $this->getDataProvider($page, $services);
+
 
         $searchModel = $dataProvider->getModels();
 
@@ -22,13 +23,14 @@ class OrdersSearch extends Orders
             'totalItems' => $dataProvider->totalCount,
             'firstItem' => $searchModel[0]->id * 100,
             'lastItem' => $searchModel[count($searchModel)-1]->id * 100,
+            'services' => $services
         ];
 
         $pagination = new Pagination();
         return array_merge($data, $pagination->getCorrectPagination($page));
     }
 
-    private function getDataProvider($page)
+    private function getDataProvider($page, $services)
     {
         $dataProvider = new ActiveDataProvider([
             'query' => Orders::find()
@@ -44,7 +46,6 @@ class OrdersSearch extends Orders
 
         $orderStatus = Orders::getStatuses();
         $orderModes = Orders::getModes();
-        $services = $this->getServices();
         $users = $this->getUsers();
 
         foreach ($orders as &$order) {

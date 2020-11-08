@@ -4,6 +4,7 @@ namespace order;
 
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\Request;
 
 class DefaultController extends Controller
 {
@@ -23,11 +24,12 @@ class DefaultController extends Controller
         ];
     }
 
-    public function actionIndex()
+    public function actionIndex(Request $request)
     {
         $orderSearch = new OrdersSearch();
+//        var_dump(\Yii::$app->request->queryParams);die;
 
-        return $this->render('index', $orderSearch->search());
+        return $this->render('index', $orderSearch->search(\Yii::$app->request->queryParams));
     }
 
 }

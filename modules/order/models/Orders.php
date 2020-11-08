@@ -83,4 +83,6 @@ class Orders extends ActiveRecord
             self::MODE_AUTO => 'Auto',
         ];
     }
+
+
 }

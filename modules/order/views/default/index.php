@@ -1,6 +1,6 @@
 <?php
 
-use order\models\OrdersSearch;
+use order\OrdersSearch;
 
 /* @var $searchModel OrdersSearch */
 /* @var $pagination int */
@@ -10,6 +10,7 @@ use order\models\OrdersSearch;
 /* @var $firstPage int */
 /* @var $lastPage int */
 /* @var $page int */
+/* @var $services array */
 
 ?>
 
@@ -25,14 +26,14 @@ use order\models\OrdersSearch;
         </div>
         <div class="collapse navbar-collapse" id="bs-navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Orders</a></li>
+                <li class="active"><a href="/">Orders</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <div class="container-fluid">
     <ul class="nav nav-tabs p-b">
-        <li class="active"><a href="#">All orders</a></li>
+        <li class="active"><a href="/">All orders</a></li>
         <li><a href="#">Pending</a></li>
         <li><a href="#">In progress</a></li>
         <li><a href="#">Completed</a></li>
@@ -69,14 +70,10 @@ use order\models\OrdersSearch;
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li class="active"><a href="">All (894931)</a></li>
-                        <li><a href=""><span class="label-id">214</span>  Real Views</a></li>
-                        <li><a href=""><span class="label-id">215</span> Page Likes</a></li>
-                        <li><a href=""><span class="label-id">10</span> Page Likes</a></li>
-                        <li><a href=""><span class="label-id">217</span> Page Likes</a></li>
-                        <li><a href=""><span class="label-id">221</span> Followers</a></li>
-                        <li><a href=""><span class="label-id">224</span> Groups Join</a></li>
-                        <li><a href=""><span class="label-id">230</span> Website Likes</a></li>
+                        <li class="active"><a href="">All (100000)</a></li>
+                        <?php foreach ($services as $service):?>
+                        <li><a href=""><span class="label-id"><?=$service['count']?></span>  <?=$service['name']?></a></li>
+                        <?php endforeach;?>
                     </ul>
                 </div>
             </th>
@@ -119,15 +116,15 @@ use order\models\OrdersSearch;
 
             <nav>
                 <ul class="pagination">
-                    <li class="disabled"><a href="" aria-label="Previous">&laquo;</a></li>
+                    <li><a href="?page=<?=$firstPage <= 0 ? 0 : $firstPage--; ?>" aria-label="Previous">&laquo;</a></li>
                 <?php for($i = $firstPage; $i <= $lastPage; $i++):?>
                     <?php if ($i === $page):?>
-                    <li class="active"><a href=""><?=$i?></a></li>
+                    <li class="active"><a href="?page=<?=$i?>"><?=$i?></a></li>
                     <?php else:?>
-                    <li><a href=""><?=$i?></a></li>
+                    <li><a href="?page=<?=$i?>"><?=$i?></a></li>
                     <?php endif;?>
                 <?php endfor; ?>
-                    <li><a href="" aria-label="Next">&raquo;</a></li>
+                    <li><a href="?page=<?=$lastPage >= 999 ? 999 : $lastPage++;?>" aria-label="Next">&raquo;</a></li>
                 </ul>
             </nav>
 
