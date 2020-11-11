@@ -2,7 +2,7 @@
 
 use Symfony\Component\Dotenv\Dotenv;
 
-$envPath = dirname(__DIR__) . '/.env';
+$envPath = dirname(__DIR__) . '/.env.exemple';
 
 // load env
 if (file_exists($envPath)) {
